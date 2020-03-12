@@ -36,13 +36,14 @@ add_filter( 'wcs_view_subscription_actions', function( $actions, $subscription )
     $first_subscription_item_id = array_keys( $subscription->get_items() )[0];
     $first_subscription_item_value = array_values( $subscription->get_items() )[0];
     $switch_url = esc_url( WC_Subscriptions_Switcher::get_switch_url( $first_subscription_item_id, $first_subscription_item_value, $subscription ) );
+    $switch_text = get_option( WC_Subscriptions_Admin::$option_prefix . '_switch_button_text', __( 'Upgrade or Downgrade', 'woocommerce-subscriptions' ) );
 
     // Remove 'Change Address' action from $actions
     unset( $actions[ 'change_address' ] );
 
     // Create reordered actions to be prepended to $actions array
     $reordered_actions = array(
-      'upgrade_or_downgrade' => array( 'url'  => $switch_url, 'name' => 'Upgrade or Downgrade' ),
+      'upgrade_or_downgrade' => array( 'url'  => $switch_url, 'name' => $switch_text ),
       'subscription_renewal_early' => $actions[ 'subscription_renewal_early' ],
       'cancel' => $actions[ 'cancel' ],
     );
