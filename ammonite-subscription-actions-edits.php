@@ -41,16 +41,34 @@ add_filter( 'wcs_view_subscription_actions', function( $actions, $subscription )
     // Remove 'Change Address' action from $actions
     unset( $actions[ 'change_address' ] );
 
+    // Change text for 'Cancel' action if it exists
+    if ( array_key_exists( 'cancel', $actions ) ) {
+      $updated_cancel_action = $actions[ 'cancel' ];
+      $updated_cancel_action[ 'name' ] = 'Test';
+      $actions[ 'cancel' ] = $updated_cancel_action;
+    }
+
     // Create reordered actions to be prepended to $actions array
-    $reordered_actions = array(
-      'upgrade_or_downgrade' => array( 'url'  => $switch_url, 'name' => $switch_text ),
-      'subscription_renewal_early' => $actions[ 'subscription_renewal_early' ],
-      'cancel' => $actions[ 'cancel' ],
-    );
+    $reordered_actions = array();
+
+    // If 'upgrade_or_downgrade' should be printed, push it to reordered_actions array (this becomes the first item) (This logic comes from the native WC Subscriptions function WC_Subscriptions_Switcher::print_switch_link)
+    if ( ! wcs_is_order( $subscription ) && 'shop_subscription' === $subscription->get_type() && WC_Subscriptions_Switcher::can_item_be_switched_by_user( $first_subscription_item_value, $subscription )) {
+       $reordered_actions += [ 'upgrade_or_downgrade' => array( 'url'  => $switch_url, 'name' => $switch_text ) ];
+    }
+
+    // If 'subscription_renewal_early' exists in actions array, push it to reordered_actions array (this becomes the second item)
+    if ( array_key_exists( 'subscription_renewal_early', $actions ) ) {
+      $reordered_actions += [ 'subscription_renewal_early' => $actions[ 'subscription_renewal_early' ] ];
+    }
+
+    // If 'cancel' exists in actions array, push it to reordered_actions array (this becomes the third item)
+    if ( array_key_exists( 'cancel', $actions ) ) {
+      $reordered_actions += [ 'cancel' => $actions[ 'cancel' ] ];
+    }
 
     // Prepend new reordered actions to $actions array
     $actions = array_merge( $reordered_actions, $actions );
   }
 
 	return $actions;
-}, 20, 2 );
+}, 100, 2 );
