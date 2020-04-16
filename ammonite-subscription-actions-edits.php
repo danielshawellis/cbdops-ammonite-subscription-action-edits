@@ -44,7 +44,7 @@ add_filter( 'wcs_view_subscription_actions', function( $actions, $subscription )
     // Change text for 'Cancel' action if it exists
     if ( array_key_exists( 'cancel', $actions ) ) {
       $updated_cancel_action = $actions[ 'cancel' ];
-      $updated_cancel_action[ 'name' ] = 'Test';
+      $updated_cancel_action[ 'name' ] = 'Cancel Renewals';
       $actions[ 'cancel' ] = $updated_cancel_action;
     }
 
