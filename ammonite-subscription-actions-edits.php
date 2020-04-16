@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Ammonite Subscriptions Actions Edits
- * Description:       This plugin makes edits to the actions within the 'Subscriptions' tab of the 'My Account' section. It removes the 'Upgrade or Downgrade' button from the subscription totals section, moving it to the table above. It also reorders the subscription actions and removes the 'Change Address' action.
+ * Description:       This plugin makes edits to the actions within the 'Subscriptions' tab of the 'My Account' section. It removes the 'Upgrade or Downgrade' button from the subscription totals section, moving it to the table above. It also reorders the subscription actions, removes the 'Change Address' action, and changes the cancel action text to 'Cancel Renewals'.
  * Version:           1.0.0
  * Author:            Daniel Ellis
  * Author URI:        https://danielellisdevelopment.com/
@@ -11,7 +11,8 @@
  * DOCUMENTATION:
  * -This plugin makes edits to the actions within the 'Subscriptions' tab of the 'My Account' section.
  * -It removes the 'Upgrade or Downgrade' button from the subscription totals section, moving it to the table above.
- * -It also reorders the subscription actions and removes the 'Change Address' action.
+ * -It reorders the subscription actions and removes the 'Change Address' action.
+ * -It changes the cancel action text to 'Cancel Renewals'.
  */
 
 /*
